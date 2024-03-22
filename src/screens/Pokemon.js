@@ -4,6 +4,7 @@ import { getPokemonDetailsApi } from "../api/pokemon";
 import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
 import Stats from "../components/Pokemon/Stats";
+import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default function Pokemon({ navigation, route }) {
   const { params } = route;
@@ -19,6 +20,21 @@ export default function Pokemon({ navigation, route }) {
       }
     })();
   }, [params]);
+
+  useEffect(() => {
+    navigation.setOptions({
+      headerRight: () => null,
+      headerLeft: () => (
+        <Icon
+          name="arrow-left"
+          color="#fff"
+          size={20}
+          style={{ marginLeft: 20 }}
+          onPress={navigation.goBack}
+        />
+      ),
+    });
+  }, [navigation, params]);
 
   if (!pokemon) return null;
 
