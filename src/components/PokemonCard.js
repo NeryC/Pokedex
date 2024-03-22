@@ -8,12 +8,15 @@ import {
 import React from "react";
 import getColorByPokemonType from "../utils/getColorByPokemonType";
 import { capitalize } from "lodash";
+import { useNavigation } from "@react-navigation/native";
 
-export default function PokemonCard({ pokemonInfo }) {
+export default function PokemonCard(pokemonInfo) {
   const pokemonColor = getColorByPokemonType(pokemonInfo.type);
   const bgStyles = { backgroundColor: pokemonColor, ...styles.bgStyle };
+
+  const navigation = useNavigation();
   const goToPokemon = () => {
-    console.log(pokemonInfo.name);
+    navigation.navigate("Pokemon", { id: pokemonInfo.id });
   };
   return (
     <TouchableWithoutFeedback onPress={goToPokemon}>
