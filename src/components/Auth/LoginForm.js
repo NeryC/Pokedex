@@ -3,14 +3,24 @@ import React from "react";
 import { TextInput } from "react-native-gesture-handler";
 import { useFormik } from "formik";
 import * as Yup from "yup";
+import { user, userDetails } from "../../utils/userDB";
 
 export default function LoginForm() {
+  const [error, setError] = useState("");
+
   const formik = useFormik({
     initialValues: initialValues(),
     validationSchema: Yup.object(validationSchema()),
     validateOnChange: false,
-    onSubmit: () => {
-      console.log("enviado");
+    onSubmit: (formValue) => {
+      setError("");
+      const { userName, password } = formValue;
+
+      if (userName !== user.username || password !== user.password) {
+        setError("El usuario o contrasena no son correctos");
+      } else {
+        console.log("Ingreso");
+      }
     },
   });
   return (
@@ -39,6 +49,8 @@ export default function LoginForm() {
 
       <Text style={styles.error}>{formik.errors.userName}</Text>
       <Text style={styles.error}>{formik.errors.password}</Text>
+
+      <Text style={styles.error}>{error}</Text>
     </View>
   );
 }
