@@ -5,10 +5,13 @@ import Header from "../components/Pokemon/Header";
 import Type from "../components/Pokemon/Type";
 import Stats from "../components/Pokemon/Stats";
 import Icon from "react-native-vector-icons/FontAwesome5";
+import Favorite from "../components/Pokemon/Favorite";
+import useAuth from "../hooks/useAuth";
 
 export default function Pokemon({ navigation, route }) {
-  const { params, auth } = route;
+  const { params } = route;
   const [pokemon, setPokemon] = useState(null);
+  const { auth } = useAuth;
 
   useEffect(() => {
     (async () => {
@@ -34,7 +37,7 @@ export default function Pokemon({ navigation, route }) {
         />
       ),
     });
-  }, [navigation, params]);
+  }, [navigation, params, pokemon]);
 
   if (!pokemon) return null;
 
