@@ -7,7 +7,7 @@ import Stats from "../components/Pokemon/Stats";
 import Icon from "react-native-vector-icons/FontAwesome5";
 
 export default function Pokemon({ navigation, route }) {
-  const { params } = route;
+  const { params, auth } = route;
   const [pokemon, setPokemon] = useState(null);
 
   useEffect(() => {
@@ -23,7 +23,7 @@ export default function Pokemon({ navigation, route }) {
 
   useEffect(() => {
     navigation.setOptions({
-      headerRight: () => null,
+      headerRight: () => (auth ? <Favorite id={pokemon?.id} /> : null),
       headerLeft: () => (
         <Icon
           name="arrow-left"
